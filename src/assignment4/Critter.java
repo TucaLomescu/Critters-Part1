@@ -1,15 +1,14 @@
 package assignment4;
-/* CRITTERS Critter.java
+/* CRITTERS Main.java
  * EE422C Project 4 submission by
- * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
- * Slip days used: <0>
- * Fall 2016
+ * Luca Tomescu
+ * LT22732
+ * Section 15455
+ * Amogh Agnihotri
+ * AA73264
+ * Section 15455
+ * Slip days used: 0
+ * Spring 2017
  */
 
 
