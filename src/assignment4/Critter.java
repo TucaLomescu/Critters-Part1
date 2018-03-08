@@ -173,8 +173,23 @@ public abstract class Critter {
 	public static void worldTimeStep() {
 		// Complete this method.
 	}
-	
+
+    /**
+     * Prints the current state of the grid to consolse
+     */
 	public static void displayWorld() {
-		// Complete this method.
+        System.out.print("+");
+        for(int i = 0; i < Params.world_width; i++) System.out.print("-");
+        System.out.println("+");
+
+        for(int i = 0; i < Params.world_height; i++) {
+            System.out.print("|");
+            for(int j = 0; j < Params.world_width; i++) System.out.print(" ");
+            System.out.println("|");
+        }
+
+        System.out.print("+");
+        for(int i = 0; i < Params.world_width; i++) System.out.print("-");
+        System.out.println("+");
 	}
 }
