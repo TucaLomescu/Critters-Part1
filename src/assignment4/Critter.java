@@ -11,13 +11,6 @@ package assignment4;
  * Spring 2017
  */
 
-
-import com.sun.xml.internal.rngom.digested.DDataPattern;
-import javafx.util.Pair;
-
-import javax.sound.midi.Soundbank;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class

@@ -70,8 +70,36 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-        
-        // System.out.println("GLHF");
+        Boolean isRunning = true;
+        while(isRunning) {
+            System.out.println("critters>");
+            String input = kb.nextLine();
+            input = input.trim();
+
+            if(input.equals("quit")) isRunning = false;
+
+            else if(input.equals("show")) Critter.displayWorld();
+
+            else if(input.contains("step")) {
+                int steps = 0;
+                if(input.equals("step")) steps = 1;
+                else steps = Integer.parseInt(input.split(" ")[1]);
+
+                for(int i = 0; i < steps; i++) Critter.worldTimeStep();
+            }
+
+
+            switch(input) {
+                case "quit":
+                    isRunning = false;
+                    break;
+                case "show":
+                    Critter.displayWorld();
+                    break;
+                case "step*":
+                    for()
+            }
+        }
         
         /* Write your code above */
         //System.out.flush();
