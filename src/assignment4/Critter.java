@@ -13,7 +13,11 @@ package assignment4;
 
 
 import com.sun.xml.internal.rngom.digested.DDataPattern;
+import javafx.util.Pair;
 
+import javax.sound.midi.Soundbank;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -145,19 +149,34 @@ public abstract class Critter {
 	}
 
     /**
-     * Prints the current state of the grid to consolse
+     * Prints the current state of the grid to console
      */
 	public static void displayWorld() {
+		// Prints top border
         System.out.print("+");
         for(int i = 0; i < Params.world_width; i++) System.out.print("-");
         System.out.println("+");
 
+        // Prints body with critters
         for(int i = 0; i < Params.world_height; i++) {
             System.out.print("|");
-            for(int j = 0; j < Params.world_width; i++) System.out.print(" ");
+            boolean spotTaken = false;
+            for(int j = 0; j < Params.world_width; i++){
+            	for(Critter c: population){
+            		if(c.x_coord == j && c.y_coord == i) {
+						System.out.println(c.toString());
+						spotTaken = true;
+					}
+				}
+				if(!spotTaken){
+					System.out.println(" ");
+				}
+				spotTaken = false;
+            }
             System.out.println("|");
         }
 
+        // Prints bottom border
         System.out.print("+");
         for(int i = 0; i < Params.world_width; i++) System.out.print("-");
         System.out.println("+");
