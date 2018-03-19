@@ -87,18 +87,6 @@ public class Main {
 
                 for(int i = 0; i < steps; i++) Critter.worldTimeStep();
             }
-
-
-            switch(input) {
-                case "quit":
-                    isRunning = false;
-                    break;
-                case "show":
-                    Critter.displayWorld();
-                    break;
-                case "step*":
-                    for()
-            }
         }
         
         /* Write your code above */
