@@ -12,6 +12,8 @@ package assignment4;
  */
 
 
+import com.sun.xml.internal.rngom.digested.DDataPattern;
+
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -73,6 +75,16 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
+		try {
+			Class c = Class.forName(critter_class_name);
+			Critter critter = (Critter) c.newInstance();
+			critter.energy = Params.start_energy;
+			critter.x_coord = getRandomInt(Params.world_width-1);
+			critter.y_coord = getRandomInt(Params.world_height-1);
+			population.add(critter);
+		}catch (Exception c){
+			throw new InvalidCritterException(critter_class_name);
+		}
 	}
 	
 	/**
