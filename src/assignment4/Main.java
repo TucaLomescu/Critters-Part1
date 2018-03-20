@@ -86,11 +86,18 @@ public class Main {
                 else steps = Integer.parseInt(input.split(" ")[1]);
 
                 for(int i = 0; i < steps; i++) Critter.worldTimeStep();
+                //add all new critters to collection
+
             }
+
+
         }
-        
+        System.out.println("DONE");
         /* Write your code above */
         //System.out.flush();
 
     }
+
+
 }
+
