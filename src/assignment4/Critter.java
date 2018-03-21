@@ -239,48 +239,54 @@ public abstract class Critter {
 	}
 
 	public static void checkConflicts() {
-		//List<List<Critter>> allConflicts = new ArrayList<ArrayList<Critter>>;
-		List<List<Critter>> allConflicts = new java.util.ArrayList<List<Critter>>();
+		int[] checked = new int[population.size()];
 
+		List<List<Critter>> allConflicts = new java.util.ArrayList<List<Critter>>();
 
 		for(int i = 0; i < population.size()-1; i++) {
 			List<Critter> curConflict = new java.util.ArrayList<Critter>();
 			curConflict.add(population.get(i));
-
 			for(int j = i + 1; j < population.size(); j++) {
 				if(population.get(j).x_coord == curConflict.get(0).x_coord && population.get(j).y_coord == curConflict.get(0).y_coord) {
-					curConflict.add(population.get(j));
+					if(checked[j]==0) {
+						curConflict.add(population.get(j));
+						checked[j] = 1;
+					}
 				}
 			}
-
 			if(curConflict.size() > 1) allConflicts.add(curConflict);
 		}
+
 		// allConflicts contains all conflicting cells on the grid
 
 		for(List<Critter> curList: allConflicts) {
 			// loop for more than two critters
-			if(curList.size() == 2) {
-				Critter A = curList.get(0);
-				Critter B = curList.get(1);
-				Boolean aFight = A.fight(B.toString());
-				Boolean bFight = B.fight(A.toString());
-				int aRoll = 0, bRoll = 0;
+			int numCritters = curList.size();
+			while(numCritters > 1) {
+				if (curList.size() == 2) {
+					Critter A = curList.get(0);
+					Critter B = curList.get(1);
+					Boolean aFight = A.fight(B.toString());
+					Boolean bFight = B.fight(A.toString());
+					int aRoll = 0, bRoll = 0;
 
-				if(aFight) aRoll = getRandomInt(A.getEnergy());
-				if(bFight) bRoll = getRandomInt(B.getEnergy());
+					if (aFight) aRoll = getRandomInt(A.getEnergy());
+					if (bFight) bRoll = getRandomInt(B.getEnergy());
 
-				if(aRoll >= bRoll) {
-					A.energy += (B.energy/2);
-					population.remove(B);
+					if (aRoll >= bRoll) {
+						A.energy += (B.energy / 2);
+						population.remove(B);
+						curList.remove(B);
+					} else {
+						B.energy += (A.energy / 2);
+						population.remove(A);
+						curList.remove(A);
+					}
+					//check for alive and dead
+					numCritters --;
 				}
-				else {
-					B.energy += (A.energy/2);
-					population.remove(A);
-				}
-				//check for alive and dead
 			}
 		}
-
 	}
 
 
