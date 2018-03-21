@@ -72,7 +72,7 @@ public class Main {
         /* Write your code below. */
         Boolean isRunning = true;
         while(isRunning) {
-            System.out.println("critters>");
+            System.out.print("critters>");
             String input = kb.nextLine();
             input = input.trim();
 

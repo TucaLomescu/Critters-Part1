@@ -11,6 +11,7 @@ package assignment4;
  * Spring 2017
  */
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -69,11 +70,12 @@ public abstract class Critter {
 			offspring.x_coord = x_coord;
 			offspring.y_coord = y_coord;
 			offspring.changeLoc(direction, true);
+			babies.add(offspring);
 		}
 	}
 
 	public abstract void doTimeStep();
-	public abstract boolean fight(String oponent);
+	public abstract boolean fight(String opponent);
 	
 	/**
 	 * create and initialize a Critter subclass.
@@ -87,7 +89,7 @@ public abstract class Critter {
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		try {
-			Class c = Class.forName(critter_class_name);
+			Class c = Class.forName("assignment4." + critter_class_name);
 			Critter critter = (Critter) c.newInstance();
 			critter.energy = Params.start_energy;
 			critter.x_coord = getRandomInt(Params.world_width-1);
@@ -107,10 +109,11 @@ public abstract class Critter {
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
 		try {
-			//Class tempC = Class.forName(critter_class_name);
-			Critter tempCritter = makeTestCritter(critter_class_name);
+			Class tempC = Class.forName("assignment4." + critter_class_name);
+			//Critter tempCritter = (Critter) tempC.newInstance();
+			//Class b = tempCritter.getClass();
 
-			//for(Critter c: population) if(c instanceof tempCritter) System.out.println("poo");
+			//for(Critter c: population) if(c instanceof ) System.out.println("poo");
 
 		}
 		catch (Exception c) {
@@ -165,16 +168,20 @@ public abstract class Critter {
 	 * Simulates one time step for every Critter in the population
 	 */
 	public static void worldTimeStep() {
+		for(Critter c: babies){
+			population.add(c);
+		}
+		babies.clear();
 		for(Critter c: population){
 			c.doTimeStep();
 		}
 		checkConflicts();
 		Algae a;
-		for(int i = 0; i < Params.refresh_algae_count; i++){
+		for(int i = 0; i < Params.refresh_algae_count; i++) {
 			a = new Algae();
 			a.setEnergy(Params.start_energy);
-			a.setX_coord(getRandomInt(Params.world_width-1));
-			a.setY_coord(getRandomInt(Params.world_height-1));
+			a.setX_coord(getRandomInt(Params.world_width - 1));
+			a.setY_coord(getRandomInt(Params.world_height - 1));
 			population.add(a);
 		}
 	}
@@ -192,15 +199,17 @@ public abstract class Critter {
         for(int i = 0; i < Params.world_height; i++) {
             System.out.print("|");
             boolean spotTaken = false;
-            for(int j = 0; j < Params.world_width; i++){
+            for(int j = 0; j < Params.world_width; j++){
+				boolean drawn = false;
             	for(Critter c: population){
-            		if(c.x_coord == j && c.y_coord == i) {
-						System.out.println(c.toString());
+            		if(c.x_coord == j && c.y_coord == i && !drawn) {
+						System.out.print(c.toString());
 						spotTaken = true;
+						drawn = true;
 					}
 				}
 				if(!spotTaken){
-					System.out.println(" ");
+					System.out.print(" ");
 				}
 				spotTaken = false;
             }
@@ -264,13 +273,13 @@ public abstract class Critter {
 		if(x_coord + changeX < 0){
 			x_coord = Params.world_width + (x_coord + changeX);
 		} else{
-			x_coord = (x_coord + changeX) % (Params.world_width-1);
+			x_coord = (x_coord + changeX) % (Params.world_width);
 		}
 
 		if(y_coord + changeY < 0){
 			y_coord = Params.world_height + (y_coord + changeY);
 		} else{
-			y_coord = (y_coord + changeY) % (Params.world_height-1);
+			y_coord = (y_coord + changeY) % (Params.world_height);
 		}
 
 	}
@@ -300,7 +309,7 @@ public abstract class Critter {
 			// loop for more than two critters
 			int numCritters = curList.size();
 			while(numCritters > 1) {
-				if (curList.size() == 2) {
+				if (numCritters > 1) {
 					Critter A = curList.get(0);
 					Critter B = curList.get(1);
 					Boolean aFight = A.fight(B.toString());
