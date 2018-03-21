@@ -95,6 +95,37 @@ public class Main {
                 Critter.setSeed(seed);
             }
 
+            else if(input.contains("make")) {
+                String[] makeInput = input.split(" ");
+                int count = 1;
+
+                if(makeInput.length == 3) count = Integer.parseInt(makeInput[2]);
+
+                for(int i = 0; i < count; i++) {
+                    try {
+                        Critter.makeCritter(makeInput[1]);
+                    }
+                    catch (Exception c) {
+                        System.out.println("error processing: " + input);
+                    }
+                }
+                //add all new critters to collection
+
+            }
+
+            else if(input.contains("stats")) {
+                String critType = input.split(" ")[1];
+                try {
+                    Critter.getInstances(critType);
+                }
+                catch (Exception c) {
+
+                }
+            }
+
+            else {
+                System.out.println("invalid command: " + input);
+            }
 
         }
         System.out.println("DONE");

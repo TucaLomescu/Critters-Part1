@@ -106,8 +106,28 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-	
+		try {
+			//Class tempC = Class.forName(critter_class_name);
+			Critter tempCritter = makeTestCritter(critter_class_name);
+
+			//for(Critter c: population) if(c instanceof tempCritter) System.out.println("poo");
+
+		}
+		catch (Exception c) {
+			throw new InvalidCritterException(critter_class_name);
+		}
+
 		return result;
+	}
+
+	public static Critter makeTestCritter(String critter_class_name) throws InvalidCritterException{
+		try {
+			Class c = Class.forName(critter_class_name);
+			Critter critter = (Critter) c.newInstance();
+			return critter;
+		}catch (Exception c){
+			throw new InvalidCritterException(critter_class_name);
+		}
 	}
 	
 	/**
