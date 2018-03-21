@@ -90,6 +90,11 @@ public class Main {
 
             }
 
+            else if(input.contains("seed")) {
+                int seed = Integer.parseInt(input.split(" ")[1]);
+                Critter.setSeed(seed);
+            }
+
 
         }
         System.out.println("DONE");

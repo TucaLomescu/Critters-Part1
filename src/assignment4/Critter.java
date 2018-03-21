@@ -59,7 +59,17 @@ public abstract class Critter {
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
-
+		if(energy >= Params.min_reproduce_energy){
+			offspring.energy = energy/2;
+			double fEnergy = ((double) energy)/2.0;
+			energy /= 2;
+			if(fEnergy%1 > 0){
+				energy ++;
+			}
+			offspring.x_coord = x_coord;
+			offspring.y_coord = y_coord;
+			offspring.changeLoc(direction, true);
+		}
 	}
 
 	public abstract void doTimeStep();
@@ -138,8 +148,15 @@ public abstract class Critter {
 		for(Critter c: population){
 			c.doTimeStep();
 		}
-		//TODO check for resolving conflicts
 		checkConflicts();
+		Algae a;
+		for(int i = 0; i < Params.refresh_algae_count; i++){
+			a = new Algae();
+			a.setEnergy(Params.start_energy);
+			a.setX_coord(getRandomInt(Params.world_width-1));
+			a.setY_coord(getRandomInt(Params.world_height-1));
+			population.add(a);
+		}
 	}
 
     /**
@@ -302,6 +319,9 @@ public abstract class Critter {
 	 */
 	static abstract class TestCritter extends Critter {
 		protected void setEnergy(int new_energy_value) {
+			if(new_energy_value < 1){
+				population.remove(this);
+			}
 			super.energy = new_energy_value;
 		}
 
