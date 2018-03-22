@@ -238,10 +238,6 @@ public abstract class Critter {
 				death.add(c);
 			}
 		}
-		for(Critter c: death){
-			population.remove(c);
-		}
-		death.clear();
 		checkConflicts();
 		Algae a;
 		for(int i = 0; i < Params.refresh_algae_count; i++) {
@@ -251,6 +247,10 @@ public abstract class Critter {
 			a.setY_coord(getRandomInt(Params.world_height - 1));
 			population.add(a);
 		}
+		for(Critter c: death){
+			population.remove(c);
+		}
+		death.clear();
 	}
 
     /**

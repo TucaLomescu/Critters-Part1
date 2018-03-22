@@ -27,13 +27,12 @@ public class Pepe extends TestCritter {
 
     /**
      * Set of instructions to do every time the world takes a timeStep
-     * For Pepe, the critter runs twice resulting in a "hop" and gains back 4 energy
+     * For Pepe, the critter runs diagonally resulting in a "hop" and gains back 4 energy
      */
     public void doTimeStep() {
         setEnergy(getEnergy() + 4 - Params.rest_energy_cost);
-        run(getRandomInt(8));
-        run(getRandomInt(8));
-        hops += 2;
+        run(1);
+        hops ++;
     }
 
     /**
