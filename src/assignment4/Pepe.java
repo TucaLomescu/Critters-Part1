@@ -36,6 +36,10 @@ public class Pepe extends TestCritter {
         hops += 2;
     }
 
+    /**
+     * shows statistics of Pepes, including number of Pepes and total hops
+     * @param pepes list of all Pepe instances
+     */
     public static void runStats(java.util.List<Critter> pepes) {
         int totalHops = 0;
         System.out.print("" + pepes.size() + " total Pepes    ");

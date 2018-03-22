@@ -71,6 +71,10 @@ public class Craig extends Critter {
 		dir = (dir + turn) % 8;
 	}
 
+	/**
+	 * shows statistics of Craigs, including total going different directions and gene counts
+	 * @param craigs list of all Craig instances
+	 */
 	public static void runStats(java.util.List<Critter> craigs) {
 		int total_straight = 0;
 		int total_left = 0;

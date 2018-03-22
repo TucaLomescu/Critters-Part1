@@ -35,6 +35,10 @@ public class Doge extends TestCritter {
         }
     }
 
+    /**
+     * shows the statistics of Doges, including total Doges and reproduction count
+     * @param doges list of all Doge instances
+     */
     public static void runStats(java.util.List<Critter> doges) {
         int totalRepro = 0;
         System.out.print("" + doges.size() + " total Doges    ");
