@@ -1,6 +1,6 @@
 package assignment4;
 
-/* CRITTERS Wall.java
+/* CRITTERS Critter2.java
  * EE422C Project 4 submission by
  * Luca Tomescu
  * LT22732
@@ -14,7 +14,7 @@ package assignment4;
 
 import assignment4.Critter.TestCritter;
 
-public class Wall extends TestCritter {
+public class Critter2 extends TestCritter {
 
     private boolean didTrumpPayForIt = false;
 
@@ -22,7 +22,7 @@ public class Wall extends TestCritter {
      * Returns toString representation of Critter
      * @return character rep of Critter
      */
-    public String toString() { return "W"; }
+    public String toString() { return "2"; }
 
     /**
      * Walls always fight (and win) because they are indomitable
@@ -39,13 +39,13 @@ public class Wall extends TestCritter {
     }
 
     /**
-     * Analyzes the statistics for Wall critters and outputs them to the console
+     * Analyzes the statistics for Critter2 critters and outputs them to the console
      * @param walls is the array of walls for which we are gathering data
      */
     public static void runStats(java.util.List<Critter> walls) {
         int totalHops = 0;
         System.out.print("" + walls.size() + " total Walls    ");
-        System.out.print(" Did Trump pay for it? Answer: " + Boolean.toString(((Wall) walls.get(0)).didTrumpPayForIt) +  "       ");
+        System.out.print(" Did Critter1 pay for it? Answer: " + Boolean.toString(((Critter2) walls.get(0)).didTrumpPayForIt) +  "       ");
 
         System.out.println(" This wall costs $" + walls.size()*2 + " brazillion!");
     }

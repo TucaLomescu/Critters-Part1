@@ -11,7 +11,6 @@ package assignment4;
  * Spring 2017
  */
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,7 +140,7 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeWallCritter(int x, int y){
-		Wall wall = new Wall();
+		Critter2 wall = new Critter2();
 		wall.setEnergy(1000);
 		wall.setX_coord(x);
 		wall.setY_coord(y);

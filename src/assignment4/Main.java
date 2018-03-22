@@ -115,10 +115,10 @@ public class Main {
                 try {
                     java.util.List<Critter> list = Critter.getInstances(critType);
 
-                    Class tempTrump = Class.forName("assignment4.Trump");
-                    Class tempWall = Class.forName("assignment4.Wall");
-                    Class tempPepe = Class.forName("assignment4.Pepe");
-                    Class tempDoge = Class.forName("assignment4.Doge");
+                    Class tempTrump = Class.forName("assignment4.Critter1");
+                    Class tempWall = Class.forName("assignment4.Critter2");
+                    Class tempPepe = Class.forName("assignment4.Critter3");
+                    Class tempDoge = Class.forName("assignment4.Critter4");
                     Class tempAlgae = Class.forName("assignment4.Algae");
                     Class tempCraig = Class.forName("assignment4.Craig");
 
@@ -139,10 +139,10 @@ public class Main {
                         for(Class c: crittersSeen) {
                             tempC = c;
                         }
-                        if(tempC == tempTrump) Trump.runStats(list);
-                        else if(tempC == tempDoge) Doge.runStats(list);
-                        else if(tempC == tempPepe) Pepe.runStats(list);
-                        else if(tempC == tempWall) Wall.runStats(list);
+                        if(tempC == tempTrump) Critter1.runStats(list);
+                        else if(tempC == tempDoge) Critter4.runStats(list);
+                        else if(tempC == tempPepe) Critter3.runStats(list);
+                        else if(tempC == tempWall) Critter2.runStats(list);
                         else if(tempC == tempAlgae) Algae.runStats(list);
                         else if(tempC == tempCraig) Craig.runStats(list);
                     }

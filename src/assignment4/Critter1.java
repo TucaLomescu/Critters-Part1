@@ -5,12 +5,12 @@ package assignment4;
  */
 import assignment4.Critter.TestCritter;
 
-public class Trump extends TestCritter {
+public class Critter1 extends TestCritter {
 
     private int dir;
     private int tanLevel = 0;
 
-    public Trump(){
+    public Critter1(){
         dir = getRandomInt(3)*2;
     }
 
@@ -18,7 +18,7 @@ public class Trump extends TestCritter {
      * Returns toString representation of Critter
      * @return character rep of Critter
      */
-    public String toString() { return "T"; }
+    public String toString() { return "1"; }
 
     /**
      * Trumps always fight
@@ -40,14 +40,14 @@ public class Trump extends TestCritter {
     }
 
     /**
-     * Analyzes the statistics for Trump critters and outputs them to the console
+     * Analyzes the statistics for Critter1 critters and outputs them to the console
      * @param trumps is a list of Trumps for gathering the statistics of
      */
     public static void runStats(java.util.List<Critter> trumps) {
         int totalTanLevel = 0;
         System.out.print("" + trumps.size() + " total Trumps    ");
         for(Critter c: trumps){
-            Trump t = (Trump) c;
+            Critter1 t = (Critter1) c;
             totalTanLevel += t.tanLevel;
         }
         System.out.println(" Their total Tan Level is: " + totalTanLevel);
