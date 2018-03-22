@@ -100,14 +100,14 @@ public class Main {
 
                 if(makeInput.length == 3) count = Integer.parseInt(makeInput[2]);
 
-                for(int i = 0; i < count; i++) {
-                    try {
+                try {
+                    for(int i = 0; i < count; i++)
                         Critter.makeCritter(makeInput[1]);
-                    }
-                    catch (Exception c) {
-                        System.out.println("error processing: " + input);
-                    }
                 }
+                catch (Exception c) {
+                    System.out.println("error processing: " + input);
+                }
+
             }
 
             else if(input.contains("stats")) {

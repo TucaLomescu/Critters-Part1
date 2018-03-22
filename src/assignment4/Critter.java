@@ -11,7 +11,6 @@ package assignment4;
  * Spring 2017
  */
 
-import java.util.ArrayList;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -226,7 +225,7 @@ public abstract class Critter {
 	 * Simulates one time step for every Critter in the population
 	 */
 	public static void worldTimeStep() {
-		List<Critter> death = new ArrayList<>();
+		List<Critter> death = new java.util.ArrayList<>();
 		for(Critter c: babies){
 			population.add(c);
 		}
