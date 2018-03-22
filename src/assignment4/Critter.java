@@ -161,7 +161,7 @@ public abstract class Critter {
 			//Critter tempCritter = (Critter) tempC.newInstance();
 
 			for(Critter c: population) {
-				if (c.getClass() == tempC){
+				if (c.getClass() == tempC || critter_class_name.equals("Critter")){
 					result.add(c);
 				}
 			}

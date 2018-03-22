@@ -133,7 +133,7 @@ public class Main {
                         crittersSeen.add(c.getClass());
                     }
 
-                    if(crittersSeen.size() > 1) {
+                    if(crittersSeen.size() > 1 || critType.equals("Critter")) {
                         //call universal case
                         Critter.runStats(list);
                     }
@@ -143,7 +143,6 @@ public class Main {
                         for(Class c: crittersSeen) {
                             tempC = c;
                         }
-
                         if(tempC == tempTrump) Trump.runStats(list);
                         else if(tempC == tempDoge) Doge.runStats(list);
                         else if(tempC == tempPepe) Pepe.runStats(list);
@@ -153,7 +152,7 @@ public class Main {
                     }
                 }
                 catch (Exception c) {
-
+                    System.out.println("invalid class: " + critType);
                 }
             }
 

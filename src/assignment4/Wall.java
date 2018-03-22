@@ -20,7 +20,7 @@ public class Wall extends TestCritter {
     public static void runStats(java.util.List<Critter> walls) {
         int totalHops = 0;
         System.out.print("" + walls.size() + " total Walls    ");
-        System.out.println(" Did Trump pay for it? Answer: " + Boolean.toString(((Wall) walls.get(0)).didTrumpPayForIt));
+        System.out.print(" Did Trump pay for it? Answer: " + Boolean.toString(((Wall) walls.get(0)).didTrumpPayForIt) +  "       ");
 
         System.out.println(" This wall costs $" + walls.size()*2 + " brazillion!");
     }

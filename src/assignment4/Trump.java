@@ -8,7 +8,7 @@ import assignment4.Critter.TestCritter;
 public class Trump extends TestCritter {
 
     private int dir;
-    private int tanLevel = 0
+    private int tanLevel = 0;
 
     public Trump(){
         dir = getRandomInt(3)*2;
