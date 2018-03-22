@@ -12,6 +12,7 @@ package assignment4;
  */
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -99,6 +100,25 @@ public abstract class Critter {
 			throw new InvalidCritterException(critter_class_name);
 		}
 	}
+
+	/**
+	 * create and initialize a Critter subclass.
+	 * critter_class_name must be the unqualified name of a concrete subclass of Critter, if not,
+	 * an InvalidCritterException must be thrown.
+	 * (Java weirdness: Exception throwing does not work properly if the parameter has lower-case instead of
+	 * upper. For example, if craig is supplied instead of Craig, an error is thrown instead of
+	 * an Exception.)
+	 * @param x
+	 * @param y
+	 * @throws InvalidCritterException
+	 */
+	public static void makeWallCritter(int x, int y){
+		Wall wall = new Wall();
+		wall.setEnergy(1000);
+		wall.setX_coord(x);
+		wall.setY_coord(y);
+		babies.add(wall);
+	}
 	
 	/**
 	 * Gets a list of critters of a specific type.
@@ -111,9 +131,12 @@ public abstract class Critter {
 		try {
 			Class tempC = Class.forName("assignment4." + critter_class_name);
 			//Critter tempCritter = (Critter) tempC.newInstance();
-			//Class b = tempCritter.getClass();
 
-			//for(Critter c: population) if(c instanceof ) System.out.println("poo");
+			for(Critter c: population) {
+				if (c.getClass() == tempC){
+					result.add(c);
+				}
+			}
 
 		}
 		catch (Exception c) {
@@ -161,20 +184,30 @@ public abstract class Critter {
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
-		// Complete this method.
+		for(int i = population.size() - 1; i > 0; i--){
+			population.remove(i);
+		}
 	}
 
 	/**
 	 * Simulates one time step for every Critter in the population
 	 */
 	public static void worldTimeStep() {
+		List<Critter> death = new ArrayList<>();
 		for(Critter c: babies){
 			population.add(c);
 		}
 		babies.clear();
 		for(Critter c: population){
 			c.doTimeStep();
+			if(c.getEnergy() <= 0){
+				death.add(c);
+			}
 		}
+		for(Critter c: death){
+			population.remove(c);
+		}
+		death.clear();
 		checkConflicts();
 		Algae a;
 		for(int i = 0; i < Params.refresh_algae_count; i++) {
@@ -348,9 +381,6 @@ public abstract class Critter {
 	 */
 	static abstract class TestCritter extends Critter {
 		protected void setEnergy(int new_energy_value) {
-			if(new_energy_value < 1){
-				population.remove(this);
-			}
 			super.energy = new_energy_value;
 		}
 
