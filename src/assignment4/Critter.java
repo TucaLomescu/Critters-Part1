@@ -352,7 +352,7 @@ public abstract class Critter {
 	}
 
 	/**
-	 * sees if any Critters on the board are overlapping
+	 * sees if any Critters on the board are overlapping, if they are then resolve their conflict
 	 */
 	public static void checkConflicts() {
 		int[] checked = new int[population.size()];

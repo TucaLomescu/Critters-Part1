@@ -39,6 +39,10 @@ public class Trump extends TestCritter {
         Critter.makeWallCritter(prevX, prevY);
     }
 
+    /**
+     * Analyzes the statistics for Trump critters and outputs them to the console
+     * @param trumps is a list of Trumps for gathering the statistics of
+     */
     public static void runStats(java.util.List<Critter> trumps) {
         int totalTanLevel = 0;
         System.out.print("" + trumps.size() + " total Trumps    ");

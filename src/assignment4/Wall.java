@@ -38,6 +38,10 @@ public class Wall extends TestCritter {
         setEnergy(getEnergy() - 9 - Params.rest_energy_cost);
     }
 
+    /**
+     * Analyzes the statistics for Wall critters and outputs them to the console
+     * @param walls is the array of walls for which we are gathering data
+     */
     public static void runStats(java.util.List<Critter> walls) {
         int totalHops = 0;
         System.out.print("" + walls.size() + " total Walls    ");
