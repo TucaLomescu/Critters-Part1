@@ -6,7 +6,12 @@ package assignment4;
  * Do not change or submit this file.
  */
 public class Craig extends Critter {
-	
+
+
+	/**
+	 * Returns toString representation of Critter
+	 * @return character rep of Critter
+	 */
 	@Override
 	public String toString() { return "C"; }
 	
@@ -20,11 +25,20 @@ public class Craig extends Critter {
 		}
 		dir = Critter.getRandomInt(8);
 	}
-	
+
+	/**
+	 * Always fights, so returns true
+	 * @return true bc always fights
+	 */
 	public boolean fight(String not_used) {
 		return true;
 	}
 
+	/**
+	 * Set of instructions to do every time the world takes a timeStep
+	 * For Craig, the critter walks in a random direction and then
+	 * checks if it has enough energy to reproduce
+	 */
 	@Override
 	public void doTimeStep() {
 		/* take one step forward */

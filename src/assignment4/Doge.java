@@ -9,13 +9,25 @@ public class Doge extends TestCritter {
 
     private int dogeReproCount = 0;
 
+    /**
+     * Returns toString representation of Critter
+     * @return character rep of Critter
+     */
     public String toString() { return "D"; }
 
+    /**
+     * Doges never fight, so returns false
+     * @return false bc no fighting
+     */
     public boolean fight(String not_used) { return false; }
 
+    /**
+     * Set of instructions to do every time the world takes a timeStep
+     * For Doges, run in a random direction and reproduce if alive still
+     */
     public void doTimeStep() {
         run(getRandomInt(7));
-        setEnergy(getEnergy()+4);
+        setEnergy(getEnergy()+5-Params.rest_energy_cost);
         if(getEnergy() > 0){
             Doge child = new Doge();
             reproduce(child, Critter.getRandomInt(8));

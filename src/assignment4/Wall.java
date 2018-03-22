@@ -1,20 +1,41 @@
 package assignment4;
 
-/*
- * Do not change or submit this file.
+/* CRITTERS Wall.java
+ * EE422C Project 4 submission by
+ * Luca Tomescu
+ * LT22732
+ * Section 15455
+ * Amogh Agnihotri
+ * AA73264
+ * Section 15455
+ * Slip days used: 0
+ * Spring 2017
  */
+
 import assignment4.Critter.TestCritter;
 
 public class Wall extends TestCritter {
 
     private boolean didTrumpPayForIt = false;
 
+    /**
+     * Returns toString representation of Critter
+     * @return character rep of Critter
+     */
     public String toString() { return "W"; }
 
-    public boolean fight(String not_used) { return false; }
+    /**
+     * Walls always fight (and win) because they are indomitable
+     * @return true bc always fights
+     */
+    public boolean fight(String not_used) { return true; }
 
+    /**
+     * Set of instructions to do every time the world takes a timeStep
+     * For Walls, energy is deducted for every step after it is built
+     */
     public void doTimeStep() {
-        setEnergy(getEnergy()-10);
+        setEnergy(getEnergy() - 9 - Params.rest_energy_cost);
     }
 
     public static void runStats(java.util.List<Critter> walls) {

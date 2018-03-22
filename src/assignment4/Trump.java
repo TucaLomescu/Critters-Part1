@@ -14,12 +14,24 @@ public class Trump extends TestCritter {
         dir = getRandomInt(3)*2;
     }
 
+    /**
+     * Returns toString representation of Critter
+     * @return character rep of Critter
+     */
     public String toString() { return "T"; }
 
+    /**
+     * Trumps always fight
+     * @return true bc always fights
+     */
     public boolean fight(String not_used) { return true; }
 
+    /**
+     * Set of instructions to do every time the world takes a timeStep
+     * For Trumps, energy is added from photosynthesis
+     */
     public void doTimeStep(){
-        //setEnergy(getEnergy());
+        setEnergy(getEnergy() - Params.rest_energy_cost);
         int prevX = getX_coord();
         int prevY = getY_coord();
         walk(dir);
