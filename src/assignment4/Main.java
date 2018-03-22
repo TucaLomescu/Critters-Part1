@@ -116,7 +116,17 @@ public class Main {
             else if(input.contains("stats")) {
                 String critType = input.split(" ")[1];
                 try {
-                    Critter.getInstances(critType);
+                    java.util.List<Critter> list = Critter.getInstances(critType);
+
+                    Class tempTrump = Class.forName("assignment4.Trump");
+                    Class tempWall = Class.forName("assignment4.Wall");
+                    Class tempPepe = Class.forName("assignment4.Pepe");
+
+                    for(Critter c: list) {
+                        if(c.getClass() == )
+                    }
+
+                    Critter.runStats(Critter.getInstances(critType));
                 }
                 catch (Exception c) {
 

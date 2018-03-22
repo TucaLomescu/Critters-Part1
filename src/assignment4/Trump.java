@@ -18,7 +18,7 @@ public class Trump extends TestCritter {
     public boolean fight(String not_used) { return true; }
 
     public void doTimeStep(){
-        setEnergy(getEnergy() - 8);
+        //setEnergy(getEnergy());
         int prevX = getX_coord();
         int prevY = getY_coord();
         walk(dir);

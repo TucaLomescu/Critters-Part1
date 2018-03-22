@@ -12,7 +12,7 @@ public class Wall extends TestCritter {
     public boolean fight(String not_used) { return false; }
 
     public void doTimeStep() {
-        setEnergy(getEnergy()-50);
+        setEnergy(getEnergy()-10);
     }
 
 }

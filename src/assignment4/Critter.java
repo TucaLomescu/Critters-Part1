@@ -32,16 +32,31 @@ public abstract class Critter {
 	}
 	
 	private static java.util.Random rand = new java.util.Random();
+
+	/**
+	 * Creates random integer between 0 and max noninclusive
+	 * @param max number up to which integer can be made
+	 * @return the random integer
+	 */
 	public static int getRandomInt(int max) {
 		return rand.nextInt(max);
 	}
-	
+
+	/**
+	 * sets seed so that random integers are the same for runs with that seed
+	 * @param new_seed seed integer value
+	 */
 	public static void setSeed(long new_seed) {
 		rand = new java.util.Random(new_seed);
 	}
 	
 	
 	/* a one-character long string that visually depicts your critter in the ASCII interface */
+
+	/**
+	 * super class for displaying string version of the critter
+	 * @return critter character
+	 */
 	public String toString() { return ""; }
 	
 	private int energy = 0;
@@ -49,7 +64,11 @@ public abstract class Critter {
 	
 	private int x_coord;
 	private int y_coord;
-	
+
+	/**
+	 *
+	 * @param direction
+	 */
 	protected final void walk(int direction) {
 		energy -= Params.walk_energy_cost;
 		changeLoc(direction, true);
