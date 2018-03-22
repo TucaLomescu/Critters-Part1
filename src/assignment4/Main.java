@@ -12,6 +12,7 @@ package assignment4;
  */
 
 
+import java.util.HashSet;
 import java.util.Scanner;
 import java.io.*;
 
@@ -121,12 +122,35 @@ public class Main {
                     Class tempTrump = Class.forName("assignment4.Trump");
                     Class tempWall = Class.forName("assignment4.Wall");
                     Class tempPepe = Class.forName("assignment4.Pepe");
+                    Class tempDoge = Class.forName("assignment4.Doge");
+                    Class tempAlgae = Class.forName("assignment4.Algae");
+                    Class tempCraig = Class.forName("assignment4.Craig");
+
+
+                    java.util.HashSet<Class> crittersSeen = new HashSet<Class>();
 
                     for(Critter c: list) {
-                        if(c.getClass() == )
+                        crittersSeen.add(c.getClass());
                     }
 
-                    Critter.runStats(Critter.getInstances(critType));
+                    if(crittersSeen.size() > 1) {
+                        //call universal case
+                        Critter.runStats(list);
+                    }
+
+                    else {
+                        Class tempC = Class.forName("assignment4.Critter");
+                        for(Class c: crittersSeen) {
+                            tempC = c;
+                        }
+
+                        if(tempC == tempTrump) Trump.runStats(list);
+                        else if(tempC == tempDoge) Doge.runStats(list);
+                        else if(tempC == tempPepe) Pepe.runStats(list);
+                        else if(tempC == tempWall) Wall.runStats(list);
+                        else if(tempC == tempAlgae) Algae.runStats(list);
+                        else if(tempC == tempCraig) Craig.runStats(list);
+                    }
                 }
                 catch (Exception c) {
 

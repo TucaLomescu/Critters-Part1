@@ -66,19 +66,28 @@ public abstract class Critter {
 	private int y_coord;
 
 	/**
-	 *
-	 * @param direction
+	 * Moves critter one unit in any direction
+	 * @param direction determines which way the critter moves
 	 */
 	protected final void walk(int direction) {
 		energy -= Params.walk_energy_cost;
 		changeLoc(direction, true);
 	}
-	
+
+	/**
+	 * Moves critter two units in any direction
+	 * @param direction determines which way the critter moves
+	 */
 	protected final void run(int direction) {
 		energy -= Params.run_energy_cost;
 		changeLoc(direction, false);
 	}
-	
+
+	/**
+	 * Allows critters to produce offspring
+	 * @param offspring is the new baby critter created by the parent
+	 * @param direction where the new critter is placed in relation to the parent
+	 */
 	protected final void reproduce(Critter offspring, int direction) {
 		if(energy >= Params.min_reproduce_energy){
 			offspring.energy = energy/2;
@@ -165,6 +174,12 @@ public abstract class Critter {
 		return result;
 	}
 
+	/**
+	 * Creates a new critter instance for testing purposes
+	 * @param critter_class_name the type of critter to be created
+	 * @return the critter that was made
+	 * @throws InvalidCritterException
+	 */
 	public static Critter makeTestCritter(String critter_class_name) throws InvalidCritterException{
 		try {
 			Class c = Class.forName(critter_class_name);
@@ -336,6 +351,9 @@ public abstract class Critter {
 
 	}
 
+	/**
+	 * sees if any Critters on the board are overlapping
+	 */
 	public static void checkConflicts() {
 		int[] checked = new int[population.size()];
 
