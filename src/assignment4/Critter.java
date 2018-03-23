@@ -120,8 +120,8 @@ public abstract class Critter {
 			Class c = Class.forName("assignment4." + critter_class_name);
 			Critter critter = (Critter) c.newInstance();
 			critter.energy = Params.start_energy;
-			critter.x_coord = getRandomInt(Params.world_width-1);
-			critter.y_coord = getRandomInt(Params.world_height-1);
+			critter.x_coord = getRandomInt(Params.world_width);
+			critter.y_coord = getRandomInt(Params.world_height);
 			population.add(critter);
 		}catch (Exception c){
 			throw new InvalidCritterException(critter_class_name);
@@ -229,6 +229,11 @@ public abstract class Critter {
 				death.add(c);
 			}
 		}
+        for(Critter c: death){
+            population.remove(c);
+        }
+        death.clear();
+
 		checkConflicts();
 		Algae a;
 		for(int i = 0; i < Params.refresh_algae_count; i++) {
@@ -238,10 +243,7 @@ public abstract class Critter {
 			a.setY_coord(getRandomInt(Params.world_height - 1));
 			population.add(a);
 		}
-		for(Critter c: death){
-			population.remove(c);
-		}
-		death.clear();
+
 	}
 
     /**
@@ -376,6 +378,8 @@ public abstract class Critter {
 					Boolean aFight = A.fight(B.toString());
 					Boolean bFight = B.fight(A.toString());
 					int aRoll = 0, bRoll = 0;
+
+
 
 					if (aFight) aRoll = getRandomInt(A.getEnergy());
 					if (bFight) bRoll = getRandomInt(B.getEnergy());

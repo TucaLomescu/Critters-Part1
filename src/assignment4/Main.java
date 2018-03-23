@@ -79,26 +79,47 @@ public class Main {
 
             if(input.equals("quit")) isRunning = false;
 
-            else if(input.equals("show")) Critter.displayWorld();
+            else if(input.contains("show")) {
+                if(input.split(" ").length > 1) System.out.println("error processing: " + input);
+                else Critter.displayWorld();
+            }
 
             else if(input.contains("step")) {
                 int steps = 0;
-                if(input.equals("step")) steps = 1;
-                else steps = Integer.parseInt(input.split(" ")[1]);
-
-                for(int i = 0; i < steps; i++) Critter.worldTimeStep();
+                try {
+                    if (input.equals("step")) steps = 1;
+                    else {
+                        steps = Integer.parseInt(input.split(" ")[1]);
+                    }
+                    for (int i = 0; i < steps; i++) Critter.worldTimeStep();
+                } catch(Exception c) {
+                    System.out.println("error processing: " + input);
+                }
             }
 
             else if(input.contains("seed")) {
-                int seed = Integer.parseInt(input.split(" ")[1]);
-                Critter.setSeed(seed);
+                try {
+                    int seed = Integer.parseInt(input.split(" ")[1]);
+                    if(input.split(" ").length > 2) throw new Exception();
+                    Critter.setSeed(seed);
+                } catch(Exception e) {
+                    System.out.println("error processing: " + input);
+                }
             }
 
             else if(input.contains("make")) {
-                String[] makeInput = input.split(" ");
                 int count = 1;
+                String[] makeInput = input.split(" ");
+                try {
 
-                if(makeInput.length == 3) count = Integer.parseInt(makeInput[2]);
+                    if (makeInput.length == 3) {
+                        count = Integer.parseInt(makeInput[2]);
+                    }
+                    if(makeInput.length > 3) throw new Exception();
+
+                } catch(Exception e) {
+                    System.out.println("error processing: " + input);
+                }
 
                 try {
                     for(int i = 0; i < count; i++)
@@ -135,10 +156,7 @@ public class Main {
                     }
 
                     else {
-                        Class tempC = Class.forName("assignment4.Critter");
-                        for(Class c: crittersSeen) {
-                            tempC = c;
-                        }
+                        Class tempC = Class.forName("assignment4." + critType);
                         if(tempC == tempTrump) Critter1.runStats(list);
                         else if(tempC == tempDoge) Critter4.runStats(list);
                         else if(tempC == tempPepe) Critter3.runStats(list);
@@ -157,7 +175,6 @@ public class Main {
             }
 
         }
-        System.out.println("DONE");
         /* Write your code above */
         //System.out.flush();
 
