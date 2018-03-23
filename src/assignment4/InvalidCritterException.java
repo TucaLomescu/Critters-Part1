@@ -1,5 +1,5 @@
 package assignment4;
-/* CRITTERS Main.java
+/* CRITTERS InvalidCritterException.java
  * EE422C Project 4 submission by
  * Luca Tomescu
  * LT22732

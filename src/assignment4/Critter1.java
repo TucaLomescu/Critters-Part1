@@ -1,7 +1,15 @@
 package assignment4;
 
-/*
- * Do not change or submit this file.
+/* CRITTERS Critter1.java
+ * EE422C Project 4 submission by
+ * Luca Tomescu
+ * LT22732
+ * Section 15455
+ * Amogh Agnihotri
+ * AA73264
+ * Section 15455
+ * Slip days used: 0
+ * Spring 2017
  */
 import assignment4.Critter.TestCritter;
 
