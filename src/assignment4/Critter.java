@@ -28,7 +28,7 @@ public abstract class Critter {
 	static {
 		myPackage = Critter.class.getPackage().toString().split(" ")[1];
 	}
-	
+
 	private static java.util.Random rand = new java.util.Random();
 
 	/**
@@ -47,8 +47,8 @@ public abstract class Critter {
 	public static void setSeed(long new_seed) {
 		rand = new java.util.Random(new_seed);
 	}
-	
-	
+
+
 	/* a one-character long string that visually depicts your critter in the ASCII interface */
 
 	/**
@@ -56,10 +56,10 @@ public abstract class Critter {
 	 * @return critter character
 	 */
 	public String toString() { return ""; }
-	
+
 	private int energy = 0;
 	protected int getEnergy() { return energy; }
-	
+
 	private int x_coord;
 	private int y_coord;
 
@@ -104,7 +104,7 @@ public abstract class Critter {
 
 	public abstract void doTimeStep();
 	public abstract boolean fight(String opponent);
-	
+
 	/**
 	 * create and initialize a Critter subclass.
 	 * critter_class_name must be the unqualified name of a concrete subclass of Critter, if not,
@@ -137,7 +137,7 @@ public abstract class Critter {
 		babies.add(wall);
 	}
 	*/
-	
+
 	/**
 	 * Gets a list of critters of a specific type.
 	 * @param critter_class_name What kind of Critter is to be listed.  Unqualified class name.
@@ -179,7 +179,7 @@ public abstract class Critter {
 			throw new InvalidCritterException(critter_class_name);
 		}
 	}
-	
+
 	/**
 	 * Prints out how many Critters of each type there are on the board.
 	 * @param critters List of Critters.
@@ -201,7 +201,7 @@ public abstract class Critter {
 			System.out.print(prefix + s + ":" + critter_count.get(s));
 			prefix = ", ";
 		}
-		System.out.println();		
+		System.out.println();
 	}
 
 	/**
@@ -229,40 +229,40 @@ public abstract class Critter {
 				death.add(c);
 			}
 		}
-        for(Critter c: death){
-            population.remove(c);
-        }
-        death.clear();
+		for(Critter c: death){
+			population.remove(c);
+		}
+		death.clear();
 
 		checkConflicts();
 		Algae a;
 		for(int i = 0; i < Params.refresh_algae_count; i++) {
 			a = new Algae();
 			a.setEnergy(Params.start_energy);
-			a.setX_coord(getRandomInt(Params.world_width - 1));
-			a.setY_coord(getRandomInt(Params.world_height - 1));
+			a.setX_coord(getRandomInt(Params.world_width));
+			a.setY_coord(getRandomInt(Params.world_height ));
 			population.add(a);
 		}
 
 	}
 
-    /**
-     * Prints the current state of the grid to console
-     */
+	/**
+	 * Prints the current state of the grid to console
+	 */
 	public static void displayWorld() {
 		// Prints top border
-        System.out.print("+");
-        for(int i = 0; i < Params.world_width; i++) System.out.print("-");
-        System.out.println("+");
+		System.out.print("+");
+		for(int i = 0; i < Params.world_width; i++) System.out.print("-");
+		System.out.println("+");
 
-        // Prints body with critters
-        for(int i = 0; i < Params.world_height; i++) {
-            System.out.print("|");
-            boolean spotTaken = false;
-            for(int j = 0; j < Params.world_width; j++){
+		// Prints body with critters
+		for(int i = 0; i < Params.world_height; i++) {
+			System.out.print("|");
+			boolean spotTaken = false;
+			for(int j = 0; j < Params.world_width; j++){
 				boolean drawn = false;
-            	for(Critter c: population){
-            		if(c.x_coord == j && c.y_coord == i && !drawn) {
+				for(Critter c: population){
+					if(c.x_coord == j && c.y_coord == i && !drawn) {
 						System.out.print(c.toString());
 						spotTaken = true;
 						drawn = true;
@@ -272,14 +272,14 @@ public abstract class Critter {
 					System.out.print(" ");
 				}
 				spotTaken = false;
-            }
-            System.out.println("|");
-        }
+			}
+			System.out.println("|");
+		}
 
-        // Prints bottom border
-        System.out.print("+");
-        for(int i = 0; i < Params.world_width; i++) System.out.print("-");
-        System.out.println("+");
+		// Prints bottom border
+		System.out.print("+");
+		for(int i = 0; i < Params.world_width; i++) System.out.print("-");
+		System.out.println("+");
 	}
 
 	/**
