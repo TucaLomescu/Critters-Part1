@@ -12,9 +12,9 @@ package assignment4;
  * Spring 2017
  */
 
-import assignment4.Critter.TestCritter;
+import assignment4.Critter;
 
-public class Critter2 extends TestCritter {
+public class Critter2 extends Critter {
 
     private boolean didTrumpPayForIt = false;
 
@@ -35,7 +35,7 @@ public class Critter2 extends TestCritter {
      * For Walls, energy is deducted for every step after it is built
      */
     public void doTimeStep() {
-        setEnergy(getEnergy() - 9 - Params.rest_energy_cost);
+        //setEnergy(getEnergy() - 9 - Params.rest_energy_cost);
     }
 
     /**

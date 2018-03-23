@@ -11,9 +11,9 @@ package assignment4;
  * Slip days used: 0
  * Spring 2017
  */
-import assignment4.Critter.TestCritter;
+import assignment4.Critter;
 
-public class Critter1 extends TestCritter {
+public class Critter1 extends Critter {
 
     private int dir;
     private int tanLevel = 0;
@@ -39,12 +39,12 @@ public class Critter1 extends TestCritter {
      * For Trumps, energy is added from photosynthesis
      */
     public void doTimeStep(){
-        setEnergy(getEnergy() - Params.rest_energy_cost);
-        int prevX = getX_coord();
-        int prevY = getY_coord();
+        //setEnergy(getEnergy() - Params.rest_energy_cost);
+        //int prevX = getX_coord();
+        //int prevY = getY_coord();
         walk(dir);
         tanLevel = (Params.start_energy - getEnergy());
-        Critter.makeWallCritter(prevX, prevY);
+        //Critter.makeWallCritter(prevX, prevY);
     }
 
     /**

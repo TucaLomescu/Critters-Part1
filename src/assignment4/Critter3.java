@@ -11,9 +11,9 @@ package assignment4;
  * Slip days used: 0
  * Spring 2017
  */
-import assignment4.Critter.TestCritter;
+import assignment4.Critter;
 
-public class Critter3 extends TestCritter {
+public class Critter3 extends Critter {
 
     private int hops = 0;
 
@@ -38,7 +38,7 @@ public class Critter3 extends TestCritter {
      * For Critter3, the critter runs diagonally resulting in a "hop" and gains back 4 energy
      */
     public void doTimeStep() {
-        setEnergy(getEnergy() + 4 - Params.rest_energy_cost);
+        //setEnergy(getEnergy() + 4 - Params.rest_energy_cost);
         run(1);
         hops ++;
     }

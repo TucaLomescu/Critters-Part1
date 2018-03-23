@@ -11,9 +11,9 @@ package assignment4;
  * Slip days used: 0
  * Spring 2017
  */
-import assignment4.Critter.TestCritter;
+import assignment4.Critter;
 
-public class Critter4 extends TestCritter {
+public class Critter4 extends Critter {
 
     private int dogeReproCount = 0;
 
@@ -35,7 +35,7 @@ public class Critter4 extends TestCritter {
      */
     public void doTimeStep() {
         run(getRandomInt(7));
-        setEnergy(getEnergy()+5-Params.rest_energy_cost);
+        //setEnergy(getEnergy()+5-Params.rest_energy_cost);
         if(getEnergy() > 0){
             Critter4 child = new Critter4();
             reproduce(child, Critter.getRandomInt(8));

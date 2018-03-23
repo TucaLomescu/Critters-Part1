@@ -78,6 +78,7 @@ public abstract class Critter {
 	 */
 	protected final void run(int direction) {
 		energy -= Params.run_energy_cost;
+		energy -= Params.rest_energy_cost;
 		changeLoc(direction, false);
 	}
 
@@ -127,17 +128,7 @@ public abstract class Critter {
 		}
 	}
 
-	/**
-	 * create and initialize a Critter subclass.
-	 * critter_class_name must be the unqualified name of a concrete subclass of Critter, if not,
-	 * an InvalidCritterException must be thrown.
-	 * (Java weirdness: Exception throwing does not work properly if the parameter has lower-case instead of
-	 * upper. For example, if craig is supplied instead of Craig, an error is thrown instead of
-	 * an Exception.)
-	 * @param x
-	 * @param y
-	 * @throws InvalidCritterException
-	 */
+	/*
 	public static void makeWallCritter(int x, int y){
 		Critter2 wall = new Critter2();
 		wall.setEnergy(1000);
@@ -145,6 +136,7 @@ public abstract class Critter {
 		wall.setY_coord(y);
 		babies.add(wall);
 	}
+	*/
 	
 	/**
 	 * Gets a list of critters of a specific type.
@@ -232,6 +224,7 @@ public abstract class Critter {
 		babies.clear();
 		for(Critter c: population){
 			c.doTimeStep();
+			c.energy -= Params.rest_energy_cost;
 			if(c.getEnergy() <= 0){
 				death.add(c);
 			}
