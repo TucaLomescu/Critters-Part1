@@ -12,6 +12,18 @@ package assignment4;
  */
 
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.scene.Group;
+
 import java.util.HashSet;
 import java.util.Scanner;
 import java.io.*;
@@ -22,7 +34,7 @@ import java.io.*;
  * input file is optional.  If input file is specified, the word 'test' is optional.
  * May not use 'test' argument without specifying input file.
  */
-public class Main {
+public class Main extends Application {
 
     static Scanner kb;	// scanner connected to keyboard input, or input file
     private static String inputFile;	// input file, used instead of keyboard input if specified
@@ -37,13 +49,55 @@ public class Main {
         myPackage = Critter.class.getPackage().toString().split(" ")[1];
     }
 
+    @Override
+    public void start(Stage primaryStage){
+        GridPane gp = new GridPane();
+        primaryStage.setTitle("Critter World!");
+        Group root = new Group();
+        Canvas canvas = new Canvas(600, 600);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        drawInitialWorld(gc);
+
+        Button btn = new Button("Quit");
+        Button btn2 = new Button("Start");
+        btn.setOnAction(e-> {
+            gc.fillRect(0, 0, 500, 500);
+        });
+
+
+        root.getChildren().add(canvas);
+        root.getChildren().add(btn);
+        gp.add(canvas, 0, 0, 2, 1);
+        gp.add(btn, 1, 1);
+        gp.add(btn2, 0,1 );
+        //primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(gp));
+        primaryStage.show();
+    }
+
+    public void drawInitialWorld(GraphicsContext gc){
+        gc.setLineWidth(1);
+        gc.setStroke(Color.BLACK);
+        double gridWidth = 550.0/Params.world_width;
+        double gridHeight = 550.0/Params.world_height;
+        for(int i = 1; i < Params.world_width; i++){
+            gc.strokeLine(i*gridWidth + 25, 25, i*gridWidth + 25, 575);
+        }
+        for(int i = 1; i < Params.world_height; i++){
+            gc.strokeLine(25, i*gridHeight + 25, 575, i*gridHeight + 25);
+        }
+
+        gc.strokeRect(25, 25, 550, 550);
+    }
+
     /**
      * Main method.
      * @param args args can be empty.  If not empty, provide two parameters -- the first is a file name, 
      * and the second is test (for test output, where all output to be directed to a String), or nothing.
      */
-    public static void main(String[] args) {
-
+    public static void main (String[] args){
+        launch(args);
         if (args.length != 0) {
             try {
                 inputFile = args[0];

@@ -13,6 +13,8 @@ package assignment4;
  */
 import assignment4.Critter;
 
+import java.awt.*;
+
 public class Critter1 extends Critter {
 
     private int dir;
@@ -66,5 +68,9 @@ public class Critter1 extends Critter {
         return ret.toString();
     }
 
+    @Override
     public CritterShape viewShape(){ return CritterShape.CIRCLE;}
+
+    @Override
+    public javafx.scene.paint.Color viewFillColor(){return javafx.scene.paint.Color.ORANGE;}
 }

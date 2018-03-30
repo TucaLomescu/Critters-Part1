@@ -11,6 +11,7 @@ package assignment4;
  * Spring 2017
  */
 
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.util.List;
@@ -272,6 +273,7 @@ public abstract class Critter {
 	 * Prints the current state of the grid to console
 	 */
 	public static void displayWorld() {
+
 		/*// Prints top border
 		System.out.print("+");
 		for(int i = 0; i < Params.world_width; i++) System.out.print("-");

@@ -13,6 +13,9 @@ package assignment4;
  */
 
 import assignment4.Critter;
+import javafx.scene.paint.Color;
+
+import java.lang.annotation.Inherited;
 
 public class Critter2 extends Critter {
 
@@ -53,6 +56,9 @@ public class Critter2 extends Critter {
         return ret.toString();
     }
 
+    @Override
     public CritterShape viewShape(){ return CritterShape.SQUARE;}
 
+    @Override
+    public javafx.scene.paint.Color viewOutlineColor(){ return Color.BLACK;}
 }

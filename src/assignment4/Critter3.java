@@ -12,6 +12,7 @@ package assignment4;
  * Spring 2017
  */
 import assignment4.Critter;
+import javafx.scene.paint.Color;
 
 public class Critter3 extends Critter {
 
@@ -59,6 +60,9 @@ public class Critter3 extends Critter {
         return ret.toString();
     }
 
+    @Override
     public CritterShape viewShape(){ return CritterShape.TRIANGLE;}
 
+    @Override
+    public javafx.scene.paint.Color viewFillColor(){ return Color.GREEN;}
 }
