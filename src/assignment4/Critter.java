@@ -250,7 +250,7 @@ public abstract class Critter {
 	 * Prints the current state of the grid to console
 	 */
 	public static void displayWorld() {
-		// Prints top border
+		/*// Prints top border
 		System.out.print("+");
 		for(int i = 0; i < Params.world_width; i++) System.out.print("-");
 		System.out.println("+");
@@ -279,7 +279,7 @@ public abstract class Critter {
 		// Prints bottom border
 		System.out.print("+");
 		for(int i = 0; i < Params.world_width; i++) System.out.print("-");
-		System.out.println("+");
+		System.out.println("+");*/
 	}
 
 	/**
@@ -398,6 +398,73 @@ public abstract class Critter {
 				}
 			}
 		}
+	}
+
+	/**
+	 * This function allows critters to look and see if their potential spot has another thing
+	 * @param direction numbered as before starting with 0 = north
+	 * @param steps true if run and false if a walk
+	 * @return toString of the critter at that spot or null if no critter
+	 */
+	public String look(int direction, boolean steps){
+		energy -= Params.look_energy_cost;
+		int changeX, changeY;
+		int tempX, tempY;
+		switch(direction){
+			case 0:
+				changeX = 0;
+				changeY = -1;
+				break;
+			case 1:
+				changeX = 1;
+				changeY = -1;
+				break;
+			case 2:
+				changeX = 1;
+				changeY = 0;
+				break;
+			case 3:
+				changeX = 1;
+				changeY = 1;
+				break;
+			case 4:
+				changeX = 0;
+				changeY = 1;
+				break;
+			case 5:
+				changeX = -1;
+				changeY = 1;
+				break;
+			case 6:
+				changeX = -1;
+				changeY = 0;
+				break;
+			default:
+				changeX = -1;
+				changeY = -1;
+				break;
+		}
+		if(steps){
+			changeX *= 2;
+			changeY *= 2;
+		}
+		if(x_coord + changeX < 0){
+			tempX = Params.world_width + (x_coord + changeX);
+		} else{
+			tempX = (x_coord + changeX) % (Params.world_width);
+		}
+
+		if(y_coord + changeY < 0){
+			tempY = Params.world_height + (y_coord + changeY);
+		} else{
+			tempY = (y_coord + changeY) % (Params.world_height);
+		}
+
+		for(Critter c: population){
+			if(c.x_coord == tempX && c.y_coord == tempY)
+				return c.toString();
+		}
+		return null;
 	}
 
 
