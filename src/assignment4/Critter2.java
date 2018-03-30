@@ -36,18 +36,23 @@ public class Critter2 extends Critter {
      */
     public void doTimeStep() {
         //setEnergy(getEnergy() - 9 - Params.rest_energy_cost);
+        look(1, false);
     }
 
     /**
      * Analyzes the statistics for Critter2 critters and outputs them to the console
      * @param walls is the array of walls for which we are gathering data
      */
-    public static void runStats(java.util.List<Critter> walls) {
+    public static String runStats(java.util.List<Critter> walls) {
+        StringBuilder ret = new StringBuilder();
         int totalHops = 0;
-        System.out.print("" + walls.size() + " total Walls    ");
-        System.out.print(" Did Critter1 pay for it? Answer: " + Boolean.toString(((Critter2) walls.get(0)).didTrumpPayForIt) +  "       ");
+        ret.append("" + walls.size() + " total Walls    ");
+        ret.append(" Did Critter1 pay for it? Answer: " + Boolean.toString(((Critter2) walls.get(0)).didTrumpPayForIt) +  "       ");
 
-        System.out.println(" This wall costs $" + walls.size()*2 + " brazillion!");
+        ret.append(" This wall costs $" + walls.size()*2 + " brazillion!\n");
+        return ret.toString();
     }
+
+    public CritterShape viewShape(){ return CritterShape.SQUARE;}
 
 }

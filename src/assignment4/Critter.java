@@ -11,6 +11,8 @@ package assignment4;
  * Spring 2017
  */
 
+import javafx.scene.paint.Color;
+
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -20,6 +22,24 @@ import java.util.List;
 
 
 public abstract class Critter {
+
+	public enum CritterShape{
+		CIRCLE,
+		SQUARE,
+		TRIANGLE,
+		DIAMOND,
+		STAR
+	}
+
+	public javafx.scene.paint.Color viewColor() { return Color.WHITE;}
+
+	public javafx.scene.paint.Color viewOutlineColor() { return viewColor();}
+	public javafx.scene.paint.Color viewFillColor() { return viewColor();}
+
+	public abstract CritterShape viewShape();
+
+
+
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
@@ -184,8 +204,9 @@ public abstract class Critter {
 	 * Prints out how many Critters of each type there are on the board.
 	 * @param critters List of Critters.
 	 */
-	public static void runStats(List<Critter> critters) {
-		System.out.print("" + critters.size() + " critters as follows -- ");
+	public static String runStats(List<Critter> critters) {
+		StringBuilder ret = new StringBuilder();
+		ret.append("" + critters.size() + " critters as follows -- ");
 		java.util.Map<String, Integer> critter_count = new java.util.HashMap<String, Integer>();
 		for (Critter crit : critters) {
 			String crit_string = crit.toString();
@@ -198,10 +219,11 @@ public abstract class Critter {
 		}
 		String prefix = "";
 		for (String s : critter_count.keySet()) {
-			System.out.print(prefix + s + ":" + critter_count.get(s));
+			ret.append(prefix + s + ":" + critter_count.get(s));
 			prefix = ", ";
 		}
-		System.out.println();
+		ret.append("\n");
+		return ret.toString();
 	}
 
 	/**
@@ -280,6 +302,7 @@ public abstract class Critter {
 		System.out.print("+");
 		for(int i = 0; i < Params.world_width; i++) System.out.print("-");
 		System.out.println("+");*/
+
 	}
 
 	/**

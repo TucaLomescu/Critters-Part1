@@ -27,4 +27,6 @@ public class Algae extends TestCritter {
 	public void doTimeStep() {
 		setEnergy(getEnergy() + Params.photosynthesis_energy_amount - Params.rest_energy_cost);
 	}
+
+	public CritterShape viewShape(){ return CritterShape.CIRCLE;}
 }

@@ -32,7 +32,10 @@ public class Critter1 extends Critter {
      * Trumps always fight
      * @return true bc always fights
      */
-    public boolean fight(String not_used) { return true; }
+    public boolean fight(String not_used) {
+        look(0, false);
+        return true;
+    }
 
     /**
      * Set of instructions to do every time the world takes a timeStep
@@ -51,13 +54,17 @@ public class Critter1 extends Critter {
      * Analyzes the statistics for Critter1 critters and outputs them to the console
      * @param trumps is a list of Trumps for gathering the statistics of
      */
-    public static void runStats(java.util.List<Critter> trumps) {
+    public static String runStats(java.util.List<Critter> trumps) {
+        StringBuilder ret = new StringBuilder();
         int totalTanLevel = 0;
-        System.out.print("" + trumps.size() + " total Trumps    ");
+        ret.append("" + trumps.size() + " total Trumps    ");
         for(Critter c: trumps){
             Critter1 t = (Critter1) c;
             totalTanLevel += t.tanLevel;
         }
-        System.out.println(" Their total Tan Level is: " + totalTanLevel);
+        ret.append(" Their total Tan Level is: " + totalTanLevel);
+        return ret.toString();
     }
+
+    public CritterShape viewShape(){ return CritterShape.CIRCLE;}
 }

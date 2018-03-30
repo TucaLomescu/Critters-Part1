@@ -47,13 +47,17 @@ public class Critter4 extends Critter {
      * shows the statistics of Doges, including total Doges and reproduction count
      * @param doges list of all Critter4 instances
      */
-    public static void runStats(java.util.List<Critter> doges) {
+    public static String runStats(java.util.List<Critter> doges) {
+        StringBuilder ret = new StringBuilder();
         int totalRepro = 0;
-        System.out.print("" + doges.size() + " total Doges    ");
+        ret.append("" + doges.size() + " total Doges    ");
         for(Critter c: doges){
             Critter4 d = (Critter4) c;
             totalRepro += d.dogeReproCount;
         }
-        System.out.println(" Critter4 reproductive history: alive Doges have reproduced " + totalRepro + " times!");
+        ret.append(" Critter4 reproductive history: alive Doges have reproduced " + totalRepro + " times!\n");
+        return ret.toString();
     }
+
+    public CritterShape viewShape(){ return CritterShape.DIAMOND;}
 }

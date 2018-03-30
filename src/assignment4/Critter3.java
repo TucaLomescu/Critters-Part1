@@ -47,13 +47,18 @@ public class Critter3 extends Critter {
      * shows statistics of Pepes, including number of Pepes and total hops
      * @param pepes list of all Critter3 instances
      */
-    public static void runStats(java.util.List<Critter> pepes) {
+    public static String runStats(java.util.List<Critter> pepes) {
+        StringBuilder ret = new StringBuilder();
         int totalHops = 0;
-        System.out.print("" + pepes.size() + " total Pepes    ");
+        ret.append("" + pepes.size() + " total Pepes    ");
         for(Critter c: pepes){
             Critter3 p = (Critter3) c;
             totalHops += p.hops;
         }
-        System.out.println(" Their total hops are: " + totalHops);
+        ret.append(" Their total hops are: " + totalHops + "\n");
+        return ret.toString();
     }
+
+    public CritterShape viewShape(){ return CritterShape.TRIANGLE;}
+
 }
