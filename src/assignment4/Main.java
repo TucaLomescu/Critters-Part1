@@ -13,21 +13,26 @@ package assignment4;
 
 
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 
 import java.util.HashSet;
+import java.util.Observable;
 import java.util.Scanner;
 import java.io.*;
-
+import java.lang.Class;
 
 /*
  * Usage: java <pkgname>.Main <input file> test
@@ -56,21 +61,54 @@ public class Main extends Application {
         Group root = new Group();
         Canvas canvas = new Canvas(600, 600);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
         drawInitialWorld(gc);
 
-        Button btn = new Button("Quit");
-        Button btn2 = new Button("Start");
-        btn.setOnAction(e-> {
-            gc.fillRect(0, 0, 500, 500);
+        ObservableList<String> critters = FXCollections.observableArrayList(
+                "Craig",
+                "Critter1"
+        );
+        Label critLabel = new Label("Critter: ");
+        ComboBox<String> critSelect = new ComboBox(critters);
+        critSelect.getSelectionModel().selectFirst();
+        Label numLabel = new Label("Number: ");
+        TextField numSelect = new TextField("1");
+
+
+        Button quit = new Button("Quit");
+        Button make = new Button("Make");
+        Button stats = new Button("Stats");
+        Button seed = new Button("Seed");
+        Button step = new Button("Step");
+
+        quit.setOnAction(e-> {
+            System.exit(0);
+        });
+        make.setOnAction(e->{
+            String makeCrit= "invalid number";
+            try{
+                int makeNum = Integer.parseInt(numSelect.getText());
+                makeCrit = critSelect.getValue();
+                for(int i = 0; i < makeNum; i++) {
+                    Critter.makeCritter(makeCrit);
+                    System.out.println("making a " + makeCrit);
+                }
+            } catch(Exception exception){
+                System.out.println("Error processing: " + makeCrit);
+            }
         });
 
-
         root.getChildren().add(canvas);
-        root.getChildren().add(btn);
-        gp.add(canvas, 0, 0, 2, 1);
-        gp.add(btn, 1, 1);
-        gp.add(btn2, 0,1 );
+        root.getChildren().add(quit);
+        gp.add(canvas, 1, 0, 3, 1);
+        gp.add(critLabel, 0, 1);
+        gp.add(critSelect, 1, 1);
+        gp.add(numLabel, 2, 1);
+        gp.add(numSelect, 3, 1);
+        gp.add(make, 0,2 );
+        gp.add(quit, 1, 2 );
+        gp.add(stats, 2,2 );
+        gp.add(seed, 3,2 );
+        gp.add(step, 4,2 );
         //primaryStage.setScene(new Scene(root));
         primaryStage.setScene(new Scene(gp));
         primaryStage.show();
