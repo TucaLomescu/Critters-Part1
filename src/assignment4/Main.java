@@ -70,13 +70,16 @@ public class Main extends Application {
         Label critLabel = new Label("Critter: ");
         ComboBox<String> critSelect = new ComboBox(critters);
         critSelect.getSelectionModel().selectFirst();
+        ComboBox<String> statsSelect = new ComboBox(critters);
+        statsSelect.getSelectionModel().selectFirst();
+        Label statsLabel = new Label("Stats for: ");
         Label numLabel = new Label("Number: ");
         TextField numSelect = new TextField("1");
+        numSelect.setMaxSize(40, 10);
 
 
         Button quit = new Button("Quit");
         Button make = new Button("Make");
-        Button stats = new Button("Stats");
         Button seed = new Button("Seed");
         Button step = new Button("Step");
 
@@ -97,18 +100,22 @@ public class Main extends Application {
             }
         });
 
+
         root.getChildren().add(canvas);
         root.getChildren().add(quit);
-        gp.add(canvas, 1, 0, 3, 1);
-        gp.add(critLabel, 0, 1);
-        gp.add(critSelect, 1, 1);
-        gp.add(numLabel, 2, 1);
-        gp.add(numSelect, 3, 1);
-        gp.add(make, 0,2 );
-        gp.add(quit, 1, 2 );
-        gp.add(stats, 2,2 );
+        gp.add(canvas, 0, 0, 5, 1);
+        gp.add(critLabel, 1, 1);
+        gp.add(critSelect, 2, 1);
+        gp.add(numLabel, 3, 1);
+        gp.add(numSelect, 4, 1);
+        gp.add(make, 1,2 );
+        gp.add(quit, 2, 2 );
         gp.add(seed, 3,2 );
         gp.add(step, 4,2 );
+        gp.add(statsLabel, 1, 3);
+        gp.add(statsSelect, 2, 3);
+        gp.setVgap(10);
+        gp.setHgap(10);
         //primaryStage.setScene(new Scene(root));
         primaryStage.setScene(new Scene(gp));
         primaryStage.show();
