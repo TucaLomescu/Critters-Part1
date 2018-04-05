@@ -11,9 +11,11 @@ package assignment4;
  * Spring 2017
  */
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -144,6 +146,7 @@ public abstract class Critter {
 			critter.x_coord = getRandomInt(Params.world_width);
 			critter.y_coord = getRandomInt(Params.world_height);
 			population.add(critter);
+
 		}catch (Exception c){
 			throw new InvalidCritterException(critter_class_name);
 		}
@@ -492,6 +495,128 @@ public abstract class Critter {
 		return null;
 	}
 
+	static void drawUpdatedCritters(GraphicsContext gc) {
+	    for(Critter c : population) {
+	        CritterShape shape = c.viewShape();
+	        /*
+            javafx.scene.paint.Color outline = c.viewOutlineColor();
+            javafx.scene.paint.Color fill = c.viewFillColor();
+
+            gc.setFill(fill);
+            gc.setStroke(outline);
+            gc.setLineWidth(5.0);
+            */
+
+            double gridWidth = 550.0/Params.world_width;
+            double gridHeight = 550.0/Params.world_height;
+            double gridHeightBorder = gridHeight*0.1;
+            double gridWidthBorder = gridWidth*0.1;
+            double critHeight = gridHeight*0.8;
+            double critWidth = gridWidth*0.8;
+
+	        switch(shape){
+                case CIRCLE:
+                    gc.fillOval(gridWidthBorder + 25 + gridWidth*c.x_coord, gridHeightBorder + 25 + gridHeight*c.y_coord,
+                            critWidth, critHeight);
+                    gc.setFill(c.viewFillColor());
+                    gc.fill();
+
+                    gc.setStroke(c.viewOutlineColor());
+                    gc.setLineWidth(2);
+                    gc.stroke();
+                    break;
+                case STAR:
+                    double[] xCoordsStar = {0,0,0,0,0,0,0,0,0,0};
+                    xCoordsStar[0] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth/2;
+                    xCoordsStar[1] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth*0.4;
+                    xCoordsStar[2] = gridWidthBorder + 25 + gridWidth*c.x_coord;
+                    xCoordsStar[3] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth*0.3;
+                    xCoordsStar[4] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth*0.2;
+                    xCoordsStar[5] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth/2;
+                    xCoordsStar[6] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth*0.8;
+                    xCoordsStar[7] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth*0.7;
+                    xCoordsStar[8] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth;
+                    xCoordsStar[9] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth*0.6;
+                    double[] yCoordsStar = {0,0,0,0,0,0,0,0,0,0};
+                    yCoordsStar[0] = gridHeightBorder + 25 + gridHeight*c.y_coord;
+                    yCoordsStar[1] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight*0.4;
+                    yCoordsStar[2] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight*0.4;
+                    yCoordsStar[3] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight*0.6;
+                    yCoordsStar[4] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight;
+                    yCoordsStar[5] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight*0.7;
+                    yCoordsStar[6] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight;
+                    yCoordsStar[7] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight*0.6;
+                    yCoordsStar[8] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight*0.4;
+                    yCoordsStar[9] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight*0.4;
+                    int nStar = 10;
+
+                    gc.fillPolygon(xCoordsStar, yCoordsStar, nStar);
+
+                    gc.setFill(c.viewFillColor());
+                    gc.fill();
+
+                    gc.setStroke(c.viewOutlineColor());
+                    gc.setLineWidth(2);
+                    gc.stroke();
+
+                    break;
+                case SQUARE:
+                    gc.fillRect(gridWidthBorder + 25 + gridWidth*c.x_coord, gridHeightBorder + 25 + gridHeight*c.y_coord, critWidth, critHeight);
+                    gc.setFill(c.viewFillColor());
+                    gc.fill();
+
+                    gc.setStroke(c.viewOutlineColor());
+                    gc.setLineWidth(2);
+                    gc.stroke();
+                    break;
+                case DIAMOND:
+                    double[] xCoordsDi = {0,0,0,0};
+                    xCoordsDi[0] = gridWidthBorder + 25 + gridWidth*c.x_coord;
+                    xCoordsDi[1] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth/2;
+                    xCoordsDi[2] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth;
+                    xCoordsDi[3] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth/2;
+                    double[] yCoordsDi = {0,0,0,0};
+                    yCoordsDi[0] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight/2;
+                    yCoordsDi[1] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight;
+                    yCoordsDi[2] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight/2;
+                    yCoordsDi[3] = gridHeightBorder + 25 + gridHeight*c.y_coord;
+                    int nDi = 4;
+
+                    gc.fillPolygon(xCoordsDi, yCoordsDi, nDi);
+
+                    gc.setFill(c.viewFillColor());
+                    gc.fill();
+
+                    gc.setStroke(c.viewOutlineColor());
+                    gc.setLineWidth(2);
+                    gc.stroke();
+
+                    break;
+                case TRIANGLE:
+                    double[] xCoordsTri = {0,0,0};
+                    xCoordsTri[0] = gridWidthBorder + 25 + gridWidth*c.x_coord;
+                    xCoordsTri[1] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth;
+                    xCoordsTri[2] = gridWidthBorder + 25 + gridWidth*c.x_coord + critWidth/2;
+                    double[] yCoordsTri = {0,0,0};
+                    yCoordsTri[0] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight;
+                    yCoordsTri[1] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight;
+                    yCoordsTri[2] = gridHeightBorder + 25 + gridHeight*c.y_coord ;
+                    int nTri = 3;
+
+                    gc.fillPolygon(xCoordsTri, yCoordsTri, nTri);
+
+                    gc.setFill(c.viewFillColor());
+                    gc.fill();
+
+                    gc.setStroke(c.viewOutlineColor());
+                    gc.setLineWidth(2);
+                    gc.stroke();
+
+                    break;
+            }
+        }
+    }
+
 
 	/* the TestCritter class allows some critters to "cheat". If you want to
 	 * create tests of your Critter model, you can create subclasses of this class
@@ -523,6 +648,7 @@ public abstract class Critter {
 		protected int getY_coord() {
 			return super.y_coord;
 		}
+
 
 
 		/*

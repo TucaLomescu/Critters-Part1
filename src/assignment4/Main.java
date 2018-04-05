@@ -65,7 +65,10 @@ public class Main extends Application {
 
         ObservableList<String> critters = FXCollections.observableArrayList(
                 "Craig",
-                "Critter1"
+                "Critter1",
+                "Critter2",
+                "Critter3",
+                "Critter4"
         );
         Label critLabel = new Label("Critter: ");
         ComboBox<String> critSelect = new ComboBox(critters);
@@ -86,6 +89,21 @@ public class Main extends Application {
         quit.setOnAction(e-> {
             System.exit(0);
         });
+
+        step.setOnAction(e-> {
+            try {
+                int stepNum = Integer.parseInt(numSelect.getText());
+                for(int i = 0; i < stepNum; i++) {
+                    Critter.worldTimeStep();
+                    System.out.println("world time step " + (i+1) + " completed!");
+                }
+                updateWorld(gc);
+            } catch (Exception exception) {
+                System.out.println("Error processing: " + numSelect.getText());
+            }
+
+        });
+
         make.setOnAction(e->{
             String makeCrit= "invalid number";
             try{
@@ -96,7 +114,7 @@ public class Main extends Application {
                     System.out.println("making a " + makeCrit);
                 }
             } catch(Exception exception){
-                System.out.println("Error processing: " + makeCrit);
+                System.out.println("Error processing: " + numSelect.getText());
             }
         });
 
@@ -121,6 +139,16 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    public void updateWorld(GraphicsContext gc) {
+        gc.clearRect(24, 24, 576, 576);
+        drawInitialWorld(gc);
+        Critter.drawUpdatedCritters(gc);
+    }
+
+    /**
+     * Draws gridlines on our view
+     * @param gc passes the graphics context in which to draw the lines
+     */
     public void drawInitialWorld(GraphicsContext gc){
         gc.setLineWidth(1);
         gc.setStroke(Color.BLACK);

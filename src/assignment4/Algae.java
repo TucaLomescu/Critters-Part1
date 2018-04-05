@@ -29,4 +29,6 @@ public class Algae extends TestCritter {
 	}
 
 	public CritterShape viewShape(){ return CritterShape.CIRCLE;}
+
+    public javafx.scene.paint.Color viewFillColor(){return javafx.scene.paint.Color.GREEN;}
 }
