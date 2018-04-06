@@ -98,4 +98,5 @@ public class Craig extends Critter {
 	}
 
 	public CritterShape viewShape(){ return CritterShape.STAR;}
+
 }

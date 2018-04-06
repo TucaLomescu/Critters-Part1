@@ -28,9 +28,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 
-import java.util.HashSet;
-import java.util.Observable;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.io.*;
 import java.lang.Class;
 
@@ -63,22 +62,47 @@ public class Main extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         drawInitialWorld(gc);
 
-        ObservableList<String> critters = FXCollections.observableArrayList(
+        File f = new File("/Users/AmoghAgnihotri/422CProjects/Critters/Critters-Part1/src/assignment4");
+        String[] files = f.list();
+        List<String> subFiles = new ArrayList<>();
+        ArrayList<String> badFiles = new ArrayList<String>();
+        badFiles.add("InvalidCritterException");
+        badFiles.add("Main");
+        badFiles.add("Header");
+        badFiles.add("Params");
+        badFiles.add("Critter");
+        for(String subClass: files){
+            String full = "assignment4." + subClass;
+            if(full.getClass().isAssignableFrom("Critter".getClass())){
+                String withoutJava = subClass.substring(0, subClass.length()-5);
+                if(!badFiles.contains(withoutJava)) subFiles.add(withoutJava);
+            }
+        }
+
+        ObservableList<String> critters = FXCollections.observableArrayList();
+        for(String s: subFiles)
+            critters.add(s);
+        /*ObservableList<String> critters = FXCollections.observableArrayList(
                 "Craig",
                 "Critter1",
                 "Critter2",
                 "Critter3",
                 "Critter4"
-        );
+        );*/
         Label critLabel = new Label("Critter: ");
         ComboBox<String> critSelect = new ComboBox(critters);
         critSelect.getSelectionModel().selectFirst();
-        ComboBox<String> statsSelect = new ComboBox(critters);
+        ObservableList<String> statCritters = FXCollections.observableArrayList(critters);
+        statCritters.add("Critter");
+        ComboBox<String> statsSelect = new ComboBox(statCritters);
         statsSelect.getSelectionModel().selectFirst();
         Label statsLabel = new Label("Stats for: ");
         Label numLabel = new Label("Number: ");
         TextField numSelect = new TextField("1");
         numSelect.setMaxSize(40, 10);
+        //stats box
+        TextField statsWindow = new TextField();
+        statsWindow.setEditable(false);
 
 
         Button quit = new Button("Quit");
@@ -98,6 +122,38 @@ public class Main extends Application {
                     System.out.println("world time step " + (i+1) + " completed!");
                 }
                 updateWorld(gc);
+                //TODO runstats
+                String critType = statsSelect.getValue();
+                String ret = "";
+                java.util.List<Critter> list = Critter.getInstances(critType);
+
+                Class tempTrump = Class.forName("assignment4.Critter1");
+                Class tempWall = Class.forName("assignment4.Critter2");
+                Class tempPepe = Class.forName("assignment4.Critter3");
+                Class tempDoge = Class.forName("assignment4.Critter4");
+                Class tempAlgae = Class.forName("assignment4.Algae");
+                Class tempCraig = Class.forName("assignment4.Craig");
+
+                java.util.HashSet<Class> crittersSeen = new HashSet<Class>();
+
+                for(Critter c: list) {
+                    crittersSeen.add(c.getClass());
+                }
+
+                if(crittersSeen.size() > 1 || critType.equals("Critter")) {
+                    //call universal case
+                    ret = Critter.runStats(list);
+                }
+                else {
+                    Class tempC = Class.forName("assignment4." + critType);
+                    if(tempC == tempTrump) ret = Critter1.runStats(list);
+                    else if(tempC == tempDoge) ret = Critter4.runStats(list);
+                    else if(tempC == tempPepe) ret = Critter3.runStats(list);
+                    else if(tempC == tempWall) ret = Critter2.runStats(list);
+                    else if(tempC == tempAlgae) ret = Algae.runStats(list);
+                    else if(tempC == tempCraig) ret = Craig.runStats(list);
+                }
+                statsWindow.setText(ret);
             } catch (Exception exception) {
                 System.out.println("Error processing: " + numSelect.getText());
             }
@@ -132,6 +188,7 @@ public class Main extends Application {
         gp.add(step, 4,2 );
         gp.add(statsLabel, 1, 3);
         gp.add(statsSelect, 2, 3);
+        gp.add(statsWindow, 3, 3, 4, 1);
         gp.setVgap(10);
         gp.setHgap(10);
         //primaryStage.setScene(new Scene(root));

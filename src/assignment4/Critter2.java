@@ -50,7 +50,8 @@ public class Critter2 extends Critter {
         StringBuilder ret = new StringBuilder();
         int totalHops = 0;
         ret.append("" + walls.size() + " total Walls    ");
-        ret.append(" Did Critter1 pay for it? Answer: " + Boolean.toString(((Critter2) walls.get(0)).didTrumpPayForIt) +  "       ");
+        if(walls.size() != 0)
+            ret.append(" Did Critter1 pay for it? Answer: " + Boolean.toString(((Critter2) walls.get(0)).didTrumpPayForIt) +  "       ");
 
         ret.append(" This wall costs $" + walls.size()*2 + " brazillion!\n");
         return ret.toString();

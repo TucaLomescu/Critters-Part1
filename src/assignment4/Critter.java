@@ -34,10 +34,10 @@ public abstract class Critter {
 		STAR
 	}
 
-	public javafx.scene.paint.Color viewColor() { return Color.WHITE;}
+	public javafx.scene.paint.Color viewColor() { return Color.BLACK;}
 
-	public javafx.scene.paint.Color viewOutlineColor() { return viewColor();}
-	public javafx.scene.paint.Color viewFillColor() { return viewColor();}
+	public javafx.scene.paint.Color viewOutlineColor() { return Color.BLACK;}
+	public javafx.scene.paint.Color viewFillColor() { return Color.WHITE;}
 
 	public abstract CritterShape viewShape();
 
@@ -516,14 +516,16 @@ public abstract class Critter {
 
 	        switch(shape){
                 case CIRCLE:
-                    gc.fillOval(gridWidthBorder + 25 + gridWidth*c.x_coord, gridHeightBorder + 25 + gridHeight*c.y_coord,
-                            critWidth, critHeight);
                     gc.setFill(c.viewFillColor());
                     gc.fill();
 
                     gc.setStroke(c.viewOutlineColor());
                     gc.setLineWidth(2);
                     gc.stroke();
+                    gc.fillOval(gridWidthBorder + 25 + gridWidth*c.x_coord, gridHeightBorder + 25 + gridHeight*c.y_coord,
+							critWidth, critHeight);
+                    gc.strokeOval(gridWidthBorder + 25 + gridWidth*c.x_coord, gridHeightBorder + 25 + gridHeight*c.y_coord,
+							critWidth, critHeight);
                     break;
                 case STAR:
                     double[] xCoordsStar = {0,0,0,0,0,0,0,0,0,0};
@@ -550,7 +552,6 @@ public abstract class Critter {
                     yCoordsStar[9] = gridHeightBorder + 25 + gridHeight*c.y_coord + critHeight*0.4;
                     int nStar = 10;
 
-                    gc.fillPolygon(xCoordsStar, yCoordsStar, nStar);
 
                     gc.setFill(c.viewFillColor());
                     gc.fill();
@@ -559,15 +560,18 @@ public abstract class Critter {
                     gc.setLineWidth(2);
                     gc.stroke();
 
+                    gc.fillPolygon(xCoordsStar, yCoordsStar, nStar);
+					gc.strokePolygon(xCoordsStar, yCoordsStar, nStar);
                     break;
                 case SQUARE:
-                    gc.fillRect(gridWidthBorder + 25 + gridWidth*c.x_coord, gridHeightBorder + 25 + gridHeight*c.y_coord, critWidth, critHeight);
                     gc.setFill(c.viewFillColor());
                     gc.fill();
 
                     gc.setStroke(c.viewOutlineColor());
                     gc.setLineWidth(2);
                     gc.stroke();
+                    gc.fillRect(gridWidthBorder + 25 + gridWidth*c.x_coord, gridHeightBorder + 25 + gridHeight*c.y_coord, critWidth, critHeight);
+					gc.strokeRect(gridWidthBorder + 25 + gridWidth*c.x_coord, gridHeightBorder + 25 + gridHeight*c.y_coord, critWidth, critHeight);
                     break;
                 case DIAMOND:
                     double[] xCoordsDi = {0,0,0,0};
@@ -582,7 +586,6 @@ public abstract class Critter {
                     yCoordsDi[3] = gridHeightBorder + 25 + gridHeight*c.y_coord;
                     int nDi = 4;
 
-                    gc.fillPolygon(xCoordsDi, yCoordsDi, nDi);
 
                     gc.setFill(c.viewFillColor());
                     gc.fill();
@@ -591,6 +594,8 @@ public abstract class Critter {
                     gc.setLineWidth(2);
                     gc.stroke();
 
+                    gc.fillPolygon(xCoordsDi, yCoordsDi, nDi);
+					gc.strokePolygon(xCoordsDi, yCoordsDi, nDi);
                     break;
                 case TRIANGLE:
                     double[] xCoordsTri = {0,0,0};
@@ -603,7 +608,6 @@ public abstract class Critter {
                     yCoordsTri[2] = gridHeightBorder + 25 + gridHeight*c.y_coord ;
                     int nTri = 3;
 
-                    gc.fillPolygon(xCoordsTri, yCoordsTri, nTri);
 
                     gc.setFill(c.viewFillColor());
                     gc.fill();
@@ -612,6 +616,8 @@ public abstract class Critter {
                     gc.setLineWidth(2);
                     gc.stroke();
 
+                    gc.fillPolygon(xCoordsTri, yCoordsTri, nTri);
+					gc.strokePolygon(xCoordsTri, yCoordsTri, nTri);
                     break;
             }
         }
