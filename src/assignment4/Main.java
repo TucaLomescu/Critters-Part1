@@ -51,7 +51,10 @@ public class Main extends Application {
     // Gets the package name.  The usage assumes that Critter and its subclasses are all in the same package.
     static {
         myPackage = Critter.class.getPackage().toString().split(" ")[1];
+
     }
+
+    boolean animating = false;
 
     @Override
     public void start(Stage primaryStage){
@@ -104,60 +107,30 @@ public class Main extends Application {
         TextField statsWindow = new TextField();
         statsWindow.setEditable(false);
 
+        Timer timer = new Timer(true);
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if(animating){
+                    System.out.println("timer task");
+                    worldStep(gc, statsWindow, numSelect, statsSelect);
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 10000);
 
         Button quit = new Button("Quit");
         Button make = new Button("Make");
         Button seed = new Button("Seed");
         Button step = new Button("Step");
+        Button animate = new Button("Animate");
 
         quit.setOnAction(e-> {
             System.exit(0);
         });
 
         step.setOnAction(e-> {
-            try {
-                int stepNum = Integer.parseInt(numSelect.getText());
-                for(int i = 0; i < stepNum; i++) {
-                    Critter.worldTimeStep();
-                    System.out.println("world time step " + (i+1) + " completed!");
-                }
-                updateWorld(gc);
-                //TODO runstats
-                String critType = statsSelect.getValue();
-                String ret = "";
-                java.util.List<Critter> list = Critter.getInstances(critType);
-
-                Class tempTrump = Class.forName("assignment4.Critter1");
-                Class tempWall = Class.forName("assignment4.Critter2");
-                Class tempPepe = Class.forName("assignment4.Critter3");
-                Class tempDoge = Class.forName("assignment4.Critter4");
-                Class tempAlgae = Class.forName("assignment4.Algae");
-                Class tempCraig = Class.forName("assignment4.Craig");
-
-                java.util.HashSet<Class> crittersSeen = new HashSet<Class>();
-
-                for(Critter c: list) {
-                    crittersSeen.add(c.getClass());
-                }
-
-                if(crittersSeen.size() > 1 || critType.equals("Critter")) {
-                    //call universal case
-                    ret = Critter.runStats(list);
-                }
-                else {
-                    Class tempC = Class.forName("assignment4." + critType);
-                    if(tempC == tempTrump) ret = Critter1.runStats(list);
-                    else if(tempC == tempDoge) ret = Critter4.runStats(list);
-                    else if(tempC == tempPepe) ret = Critter3.runStats(list);
-                    else if(tempC == tempWall) ret = Critter2.runStats(list);
-                    else if(tempC == tempAlgae) ret = Algae.runStats(list);
-                    else if(tempC == tempCraig) ret = Craig.runStats(list);
-                }
-                statsWindow.setText(ret);
-            } catch (Exception exception) {
-                System.out.println("Error processing: " + numSelect.getText());
-            }
-
+            worldStep(gc, statsWindow, numSelect, statsSelect);
         });
 
         make.setOnAction(e->{
@@ -174,6 +147,21 @@ public class Main extends Application {
             }
         });
 
+        seed.setOnAction(e->{
+            try{
+                int seedNum = Integer.parseInt(numSelect.getText());
+                Critter.setSeed(seedNum);
+            } catch(Exception exception) {
+                System.out.println("error processing: invalid number");
+            }
+        });
+
+        animate.setOnAction(e->{
+            animating = !animating;
+            System.out.println("animate: " + animating);
+        });
+
+
 
         root.getChildren().add(canvas);
         root.getChildren().add(quit);
@@ -189,6 +177,7 @@ public class Main extends Application {
         gp.add(statsLabel, 1, 3);
         gp.add(statsSelect, 2, 3);
         gp.add(statsWindow, 3, 3, 4, 1);
+        gp.add(animate, 5, 2);
         gp.setVgap(10);
         gp.setHgap(10);
         //primaryStage.setScene(new Scene(root));
@@ -219,6 +208,54 @@ public class Main extends Application {
         }
 
         gc.strokeRect(25, 25, 550, 550);
+    }
+
+
+    public void worldStep(GraphicsContext gc, TextField statsWindow, TextField numSelect, ComboBox<String> statsSelect){
+        try {
+            int stepNum = Integer.parseInt(numSelect.getText());
+            for(int i = 0; i < stepNum; i++) {
+                Critter.worldTimeStep();
+                System.out.println("world time step " + (i+1) + " completed!");
+            }
+            updateWorld(gc);
+
+            String critType = statsSelect.getValue();
+            String ret = "";
+            java.util.List<Critter> list = Critter.getInstances(critType);
+
+            Class tempTrump = Class.forName("assignment4.Critter1");
+            Class tempWall = Class.forName("assignment4.Critter2");
+            Class tempPepe = Class.forName("assignment4.Critter3");
+            Class tempDoge = Class.forName("assignment4.Critter4");
+            Class tempAlgae = Class.forName("assignment4.Algae");
+            Class tempCraig = Class.forName("assignment4.Craig");
+
+            java.util.HashSet<Class> crittersSeen = new HashSet<Class>();
+
+            for(Critter c: list) {
+                crittersSeen.add(c.getClass());
+            }
+
+            if(crittersSeen.size() > 1 || critType.equals("Critter")) {
+                //call universal case
+                ret = Critter.runStats(list);
+            }
+            else {
+                Class tempC = Class.forName("assignment4." + critType);
+                if(tempC == tempTrump) ret = Critter1.runStats(list);
+                else if(tempC == tempDoge) ret = Critter4.runStats(list);
+                else if(tempC == tempPepe) ret = Critter3.runStats(list);
+                else if(tempC == tempWall) ret = Critter2.runStats(list);
+                else if(tempC == tempAlgae) ret = Algae.runStats(list);
+                else if(tempC == tempCraig) ret = Craig.runStats(list);
+            }
+            statsWindow.setText(ret);
+        } catch (Exception exception) {
+            System.out.println("Error processing: " + numSelect.getText());
+        }
+
+
     }
 
     /**
